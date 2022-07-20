@@ -1,5 +1,8 @@
 import styles from "./TaskList.module.css"
 
+//assets
+import DeleteIcon from "../assets/DeleteIcon.svg"
+
 export function TaskList() {
     return (
         <div className={styles.wrapper}>
@@ -14,8 +17,14 @@ export function TaskList() {
                 </div>
             </div>
             <ul>
-                <li>
-                    <input type="checkbox" name="solved" id="solved" />
+                <li className={styles.taskItem}>
+                    <input className={styles.checkbox} type="checkbox" name="solved" id="solved" />
+                    <p className={styles.taskText}>
+                        Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.
+                    </p>
+                    <button className={styles.deleteIcon}>
+                        <img src={DeleteIcon} alt="Deletar tarefa" />
+                    </button>
                 </li>
             </ul>
         </div>
