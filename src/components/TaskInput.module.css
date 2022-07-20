@@ -1,0 +1,40 @@
+.wrapper {
+    max-width: 46.6rem;
+    margin: -30px auto;
+    display: flex;
+    padding: 0 10px;
+}
+
+.input,
+.button {
+    border-radius: 8px;
+    border: none;
+}
+
+.input {
+    background-color: var(--gray-500);
+    color: var(--white);
+    height: 3.38rem;
+    padding: 0 20px;
+    margin-right: 12px;
+    width: 100%;
+}
+
+.button {
+    background-color: var(--blue);
+    padding: 0 20px;
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    transition: background-color 0.2s;
+    color: var(--white);
+    font-weight: 700;
+}
+
+.button:hover {
+    background-color: var(--blueDark);
+}
+
+.button img {
+    margin-left: 10px;
+}
