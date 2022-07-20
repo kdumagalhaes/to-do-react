@@ -13,6 +13,11 @@ export function TaskList() {
                     <span className={styles.counterNumbers}>2 de 5</span>
                 </div>
             </div>
+            <ul>
+                <li>
+                    <input type="checkbox" name="solved" id="solved" />
+                </li>
+            </ul>
         </div>
     )
 }
