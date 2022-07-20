@@ -24,9 +24,11 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    list-style: none;
 }
 
 body {
+    font-family: 'Inter', sans-serif;
     background-color: var(--gray-600);
     color: var(--gray-300);
     -webkit-font-smoothing: antialiased;

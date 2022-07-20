@@ -24,6 +24,7 @@ export function TaskInput() {
         <form 
         className={styles.wrapper}
         >
+            {/* inserir borda 1px gray-700 */}
             <input 
                 className={styles.input} 
                 type="text" 
