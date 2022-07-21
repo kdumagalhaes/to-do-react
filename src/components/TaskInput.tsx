@@ -7,6 +7,8 @@ import React, { useState } from "react"
 export function TaskInput() {
 
     const [newTask, setNewTask] = useState("")
+    const [taskList, setTaskList] = useState([""])
+
 
     const handleNewTaskInvalid = (event: React.InvalidEvent<HTMLInputElement>): void => {
         event.target.setCustomValidity('Este campo não pode ser vazio!')
@@ -16,13 +18,18 @@ export function TaskInput() {
         event.target.setCustomValidity('')
         setNewTask(event?.target.value)
     }
-    console.log(newTask)
+
+    const handleTaskSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
+        event.preventDefault()
+        setTaskList([...taskList, newTask])
+    }
 
     const isNewTaskEmpty = newTask === "" 
 
     return (
         <form 
         className={styles.wrapper}
+        onSubmit={handleTaskSubmit}
         >
             {/* inserir borda 1px gray-700 */}
             <input 
