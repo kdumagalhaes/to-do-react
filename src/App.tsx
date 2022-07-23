@@ -2,16 +2,14 @@ import "./global.css"
 
 //components
 import { Header } from "./components/Header"
-import { TaskInput } from "./components/TaskInput"
-import { TaskList } from "./components/TaskList"
+import { TaskForm } from "./components/TaskForm"
 
 function App() {
 
   return (
     <>
       <Header />
-      <TaskInput />
-      <TaskList />
+      <TaskForm />
     </>
   )
 }

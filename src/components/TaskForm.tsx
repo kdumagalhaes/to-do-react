@@ -1,14 +1,15 @@
-import styles from "./TaskInput.module.css"
+import styles from "./TaskForm.module.css"
 
 //assets
 import CreateIcon from "../assets/CreateIcon.svg"
-import React, { useState } from "react"
 
-export function TaskInput() {
+import React, { useState } from "react"
+import { Task } from "./Task"
+
+export function TaskForm() {
 
     const [newTask, setNewTask] = useState("")
-    const [taskList, setTaskList] = useState([""])
-
+    const [taskList, setTaskList] = useState(Array<string>)
 
     const handleNewTaskInvalid = (event: React.InvalidEvent<HTMLInputElement>): void => {
         event.target.setCustomValidity('Este campo não pode ser vazio!')
@@ -25,10 +26,12 @@ export function TaskInput() {
     }
 
     const isNewTaskEmpty = newTask === "" 
+    const tasksQuantity = taskList.length
 
     return (
+        <>
         <form 
-        className={styles.wrapper}
+        className={styles.form}
         onSubmit={handleTaskSubmit}
         >
             {/* inserir borda 1px gray-700 */}
@@ -50,5 +53,21 @@ export function TaskInput() {
                 <img src={CreateIcon} alt="Criar" />
             </button>
         </form>
+        <div className={styles.wrapper}>
+            <div className={styles.counter}>
+                <div className={styles.createdTasks}>
+                    <p>Tarefas criadas</p>
+                    <span className={styles.counterNumbers}>{tasksQuantity}</span>
+                </div>
+                <div className={styles.solvedTasks}>
+                    <p>Concluídas</p>
+                    <span className={styles.counterNumbers}>2 de {tasksQuantity}</span>
+                </div>
+            </div>
+            <ul>
+               <Task />
+            </ul>
+        </div>
+        </>
     )
 }
