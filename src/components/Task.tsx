@@ -4,7 +4,13 @@ import styles from "./Task.module.css"
 import DeleteIcon from "../assets/DeleteIcon.svg"
 import { useState } from "react"
 
-export function Task() {
+interface TaskProps {
+    text: string
+    onDelete: (id: number) => void
+    id: number
+}
+
+export function Task({text, onDelete, id}: TaskProps) {
 
     const [taskStatus, setTaskStatus] = useState(false)
 
@@ -12,13 +18,28 @@ export function Task() {
         setTaskStatus(!taskStatus)
     }
 
+    const handleDeleteTask = (): void => {
+        onDelete(id)
+    }
+
     return (
-        <li className={styles.taskItem}>
-        <input className={styles.checkbox} type="checkbox" name="solved" id="solved" onClick={handleTaskStatus} checked={taskStatus}/>
+        <li className={taskStatus ? styles.taskItemDone : styles.taskItem}>
+        <input 
+            className={styles.checkbox} 
+            type="checkbox" 
+            name="solved" 
+            id="solved" 
+            onClick={handleTaskStatus} 
+            checked={taskStatus}
+            readOnly
+        />
         <p className={taskStatus ? styles.taskDone : styles.taskText}>
-            Integer urna interdum massa libero auctor neque turpis turpis semper. Duis vel sed fames integer.
+            {text}
         </p>
-        <button className={styles.deleteIcon}>
+        <button 
+            className={styles.deleteIcon}
+            onClick={handleDeleteTask}    
+        >
             <img src={DeleteIcon} alt="Deletar tarefa" />
         </button>
     </li>

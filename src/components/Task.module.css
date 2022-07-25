@@ -1,11 +1,20 @@
-.taskItem {
+.taskItem,
+.taskItemDone {
     background-color: var(--gray-500);
     margin-bottom: 0.75rem;
     border-radius: 8px;
     display: flex;
     align-items: flex-start;
     padding: 1.2rem 1.1rem;
-    border: 1px solid var(--gray-400);
+    transition: border 0.3s;
+}
+
+.taskItem {
+    outline: 1px solid var(--gray-400);
+}
+
+.taskItemDone {
+    outline: none;
 }
 
 .taskText,
@@ -13,6 +22,7 @@
     font-size: 0.875rem;
     margin: 0 1rem;
     line-height: 1.4;
+    transition: all 0.3s;
 }
 
 .taskText {
