@@ -67,7 +67,6 @@ export function TaskForm() {
         className={styles.form}
         onSubmit={handleTaskSubmit}
         >
-            {/* inserir borda 1px gray-700 */}
             <input 
                 className={styles.input} 
                 type="text" 
