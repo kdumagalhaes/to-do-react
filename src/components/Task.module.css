@@ -1,0 +1,68 @@
+.taskItem,
+.taskItemDone {
+    background-color: var(--gray-500);
+    margin-bottom: 0.75rem;
+    border-radius: 8px;
+    display: flex;
+    align-items: flex-start;
+    padding: 1.2rem 1.1rem;
+    transition: border 0.3s;
+}
+
+.taskItem {
+    outline: 1px solid var(--gray-400);
+}
+
+.taskItemDone {
+    outline: none;
+}
+
+.taskText,
+.taskDone {
+    font-size: 0.875rem;
+    margin: 0 1rem;
+    line-height: 1.4;
+    transition: all 0.3s;
+}
+
+.taskText {
+    color: var(--white);
+}
+
+.taskDone {
+    color: var(--gray-300);
+    text-decoration: line-through;
+}
+
+.deleteIcon {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    box-shadow: none;
+}
+
+.checkbox {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 1.2rem;
+    height: 1.2rem;
+    border: 2px solid var(--blue);
+    border-radius: 100%;
+    transition: all 0.3s;
+    box-shadow: none;
+    cursor: pointer;
+}
+
+.checkbox:checked {
+    background-color: var(--purpleDark);
+    border: none;
+    box-shadow: none;
+}
+
+.checkbox:checked::before {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    content: url("../assets/ArrowIcon.svg");
+    color: var(--white);
+}
