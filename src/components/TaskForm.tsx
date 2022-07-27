@@ -3,7 +3,7 @@ import styles from "./TaskForm.module.css"
 //assets
 import CreateIcon from "../assets/CreateIcon.svg"
 
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Task } from "./Task"
 
 interface Task {
@@ -15,9 +15,7 @@ interface Task {
 export function TaskForm() {
 
     const [taskList, setTaskList] = useState(Array<Task>)
-    const [taskListWithStatus, setTaskListWithStatus] = useState(Array<Task>)
     const [taskText, setTaskText] = useState('')
-    const [taskStatus, setTaskStatus] = useState(false)
 
     const handletaskListInvalid = (event: React.InvalidEvent<HTMLInputElement>): void => {
         event.target.setCustomValidity('Este campo não pode ser vazio!')
@@ -28,12 +26,11 @@ export function TaskForm() {
 
         let idCounter = (new Date()).getTime()
 
-        setTaskList([...taskList, { text: taskText, status: taskStatus, id: idCounter }])
+        setTaskList([...taskList, { text: taskText, status: false, id: idCounter }])
         setTaskText('')
     }
  
     const handleTaskStatus = (taskId: number): void => {
-        setTaskStatus(!taskStatus)
 
         const taskWithStatus = taskList.map(task => {
             if (task.id === taskId) {
@@ -42,7 +39,7 @@ export function TaskForm() {
             return task
         })
 
-        setTaskListWithStatus(taskWithStatus)
+        setTaskList(taskWithStatus)
     }
 
     const handletaskListChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
@@ -60,7 +57,7 @@ export function TaskForm() {
 
     const istaskListEmpty = taskText === "" 
     const tasksQuantity = taskList.length
-    const doneTaskQuantity = taskListWithStatus.filter(task => {
+    const doneTaskQuantity = taskList.filter(task => {
          return task.status === true 
     }).length
 
@@ -70,7 +67,6 @@ export function TaskForm() {
         className={styles.form}
         onSubmit={handleTaskSubmit}
         >
-            {/* inserir borda 1px gray-700 */}
             <input 
                 className={styles.input} 
                 type="text" 
