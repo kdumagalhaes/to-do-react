@@ -1,10 +1,12 @@
 import styles from "./TaskForm.module.css"
+import React, { useState } from "react"
 
 //assets
 import CreateIcon from "../assets/CreateIcon.svg"
 
-import React, { useState } from "react"
+//components
 import { Task } from "./Task"
+import { NoTaskMessage } from "./NoTaskMessage"
 
 interface Task {
     status: boolean
@@ -97,21 +99,25 @@ export function TaskForm() {
                     <span className={styles.counterNumbers}>{doneTaskQuantity} de {tasksQuantity}</span>
                 </div>
             </div>
-            <ul>
             {
-                taskList.map(task => {
-                    return (
-                        <Task
-                        text={task.text}
-                        key={task.id}
-                        id={task.id}
-                        onDelete={handleTaskDelete}
-                        retrieveTaskId={handleTaskStatus}
-                       />
-                    )
-                })
+                tasksQuantity === 0 
+                ? <NoTaskMessage /> 
+                : <ul>
+                {
+                    taskList.map(task => {
+                        return (
+                            <Task
+                            text={task.text}
+                            key={task.id}
+                            id={task.id}
+                            onDelete={handleTaskDelete}
+                            retrieveTaskId={handleTaskStatus}
+                           />
+                        )
+                    })
+                }
+                </ul>
             }
-            </ul>
         </div>
         </>
     )
