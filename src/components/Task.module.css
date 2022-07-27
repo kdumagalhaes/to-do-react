@@ -19,6 +19,7 @@
 
 .taskText,
 .taskDone {
+    width: 100%;
     font-size: 0.875rem;
     margin: 0 1rem;
     line-height: 1.4;
