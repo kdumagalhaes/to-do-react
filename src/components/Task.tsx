@@ -7,15 +7,17 @@ import { useState } from "react"
 interface TaskProps {
     text: string
     onDelete: (id: number) => void
+    retrieveTaskId: (taskId: number) => void
     id: number
 }
 
-export function Task({text, onDelete, id}: TaskProps) {
+export function Task({text, onDelete, id, retrieveTaskId}: TaskProps) {
 
     const [taskStatus, setTaskStatus] = useState(false)
 
     const handleTaskStatus = (): void => { 
         setTaskStatus(!taskStatus)
+        retrieveTaskId(id)
     }
 
     const handleDeleteTask = (): void => {

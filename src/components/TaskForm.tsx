@@ -3,7 +3,7 @@ import styles from "./TaskForm.module.css"
 //assets
 import CreateIcon from "../assets/CreateIcon.svg"
 
-import React, { useState } from "react"
+import React, { useEffect, useState } from "react"
 import { Task } from "./Task"
 
 interface Task {
@@ -14,10 +14,12 @@ interface Task {
 
 export function TaskForm() {
 
-    const [newTask, setNewTask] = useState(Array<Task>)
+    const [taskList, setTaskList] = useState(Array<Task>)
+    const [taskListWithStatus, setTaskListWithStatus] = useState(Array<Task>)
     const [taskText, setTaskText] = useState('')
+    const [taskStatus, setTaskStatus] = useState(false)
 
-    const handleNewTaskInvalid = (event: React.InvalidEvent<HTMLInputElement>): void => {
+    const handletaskListInvalid = (event: React.InvalidEvent<HTMLInputElement>): void => {
         event.target.setCustomValidity('Este campo não pode ser vazio!')
     }
 
@@ -25,28 +27,42 @@ export function TaskForm() {
         event.preventDefault()
 
         let idCounter = (new Date()).getTime()
-        
-        setNewTask([...newTask, {text: taskText, status: true, id: idCounter }])
+
+        setTaskList([...taskList, { text: taskText, status: taskStatus, id: idCounter }])
         setTaskText('')
     }
+ 
+    const handleTaskStatus = (taskId: number): void => {
+        setTaskStatus(!taskStatus)
 
+        const taskWithStatus = taskList.map(task => {
+            if (task.id === taskId) {
+                task.status = !task.status
+            } 
+            return task
+        })
 
-    const handleNewTaskChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
+        setTaskListWithStatus(taskWithStatus)
+    }
+
+    const handletaskListChange = (event: React.ChangeEvent<HTMLInputElement>): void => {
         event.target.setCustomValidity('')
         setTaskText(event.target.value)
     }
 
     const handleTaskDelete = (taskToDelete: number): void => {
-        const taskListWithoutDeletedOne = newTask.filter(task => {
+        const taskListWithoutDeletedOne = taskList.filter(task => {
             return task.id !== taskToDelete
         })
 
-        setNewTask(taskListWithoutDeletedOne)
+        setTaskList(taskListWithoutDeletedOne)
     }
 
-    const isNewTaskEmpty = taskText === "" 
-    const tasksQuantity = newTask.length
-    const doneTaskQuantity = 0
+    const istaskListEmpty = taskText === "" 
+    const tasksQuantity = taskList.length
+    const doneTaskQuantity = taskListWithStatus.filter(task => {
+         return task.status === true 
+    }).length
 
     return (
         <>
@@ -59,8 +75,8 @@ export function TaskForm() {
                 className={styles.input} 
                 type="text" 
                 placeholder="Adicione uma nova tarefa" 
-                onChange={handleNewTaskChange}
-                onInvalid={handleNewTaskInvalid}
+                onChange={handletaskListChange}
+                onInvalid={handletaskListInvalid}
                 value={taskText}
                 autoFocus 
                 required
@@ -68,7 +84,7 @@ export function TaskForm() {
             <button 
                 type="submit"
                 className={styles.button} 
-                disabled={isNewTaskEmpty}
+                disabled={istaskListEmpty}
             >
                 Criar
                 <img src={CreateIcon} alt="Criar" />
@@ -87,13 +103,14 @@ export function TaskForm() {
             </div>
             <ul>
             {
-                newTask.map(task => {
+                taskList.map(task => {
                     return (
                         <Task
                         text={task.text}
                         key={task.id}
                         id={task.id}
                         onDelete={handleTaskDelete}
+                        retrieveTaskId={handleTaskStatus}
                        />
                     )
                 })
